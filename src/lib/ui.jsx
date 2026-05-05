@@ -121,37 +121,51 @@ export function Num({ children, mono = true, weight = 600, size = 14, color, sty
 
 // ─── TopBar ──────────────────────────────────────────────────────────────────
 export function TopBar({ title, subtitle, leading, trailing, t, large = false }) {
+  if (large) {
+    return (
+      <div style={{ padding: '8px 20px 14px', background: t.bg }}>
+        {/* Button row: leading left, trailing right */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 36, marginBottom: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            {leading}
+          </div>
+          {trailing && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              {trailing}
+            </div>
+          )}
+        </div>
+        {/* Title block */}
+        <div>
+          {subtitle && (
+            <div style={{
+              fontSize: 12, fontWeight: 600, color: t.fgMuted,
+              letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2,
+            }}>{subtitle}</div>
+          )}
+          <h1 style={{
+            margin: 0, fontSize: 26, fontWeight: 700, color: t.fg,
+            letterSpacing: '-0.02em', lineHeight: 1.1,
+          }}>{title}</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{
-      padding: large ? '8px 20px 12px' : '10px 16px',
-      display: 'flex', alignItems: large ? 'flex-end' : 'center',
+      padding: '10px 16px',
+      display: 'flex', alignItems: 'center',
       justifyContent: 'space-between', gap: 10,
-      borderBottom: large ? 'none' : `0.5px solid ${t.border}`,
+      borderBottom: `0.5px solid ${t.border}`,
       background: t.bg,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
         {leading}
-        <div style={{ minWidth: 0 }}>
-          {large ? (
-            <>
-              {subtitle && (
-                <div style={{
-                  fontSize: 12, fontWeight: 600, color: t.fgMuted,
-                  letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2,
-                }}>{subtitle}</div>
-              )}
-              <h1 style={{
-                margin: 0, fontSize: 26, fontWeight: 700, color: t.fg,
-                letterSpacing: '-0.02em', lineHeight: 1.1,
-              }}>{title}</h1>
-            </>
-          ) : (
-            <div style={{
-              fontSize: 16, fontWeight: 600, color: t.fg, letterSpacing: '-0.01em',
-              whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-            }}>{title}</div>
-          )}
-        </div>
+        <div style={{
+          fontSize: 16, fontWeight: 600, color: t.fg, letterSpacing: '-0.01em',
+          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+        }}>{title}</div>
       </div>
       {trailing && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
