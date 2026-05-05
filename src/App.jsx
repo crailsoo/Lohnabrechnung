@@ -21,7 +21,9 @@ import ScreenCalc       from './screens/Calculator.jsx';
 import ScreenCalendar   from './screens/Calendar.jsx';
 import ScreenLeaveDetail from './screens/LeaveDetail.jsx';
 import ScreenTips       from './screens/Tips.jsx';
-import ScreenTimes      from './screens/Times.jsx';
+import ScreenTimes         from './screens/Times.jsx';
+import ScreenNotifications from './screens/Notifications.jsx';
+import ScreenSettings      from './screens/Settings.jsx';
 
 const TWEAK_DEFAULTS = { dark: false, accent: '#3A4D7A', density: 'regular', fontScale: 1 };
 
@@ -67,7 +69,9 @@ export default function App() {
     if (top.screen === 'payslip')     return <ScreenPayslip    {...props}/>;
     if (top.screen === 'calc')        return <ScreenCalc       {...props}/>;
     if (top.screen === 'leave-detail') return <ScreenLeaveDetail {...props}/>;
-    if (top.screen === 'tips')        return <ScreenTips       {...props}/>;
+    if (top.screen === 'tips')         return <ScreenTips          {...props}/>;
+    if (top.screen === 'notifications') return <ScreenNotifications {...props}/>;
+    if (top.screen === 'settings')     return <ScreenSettings      {...props}/>;
     return renderTab();
   };
 

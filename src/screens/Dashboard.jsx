@@ -15,8 +15,8 @@ export default function ScreenDashboard({ t, d, nav }) {
         subtitle="Dienstag · 5. Mai 2026"
         title="Guten Morgen, Raphi"
         trailing={<>
-          <IconBtn icon={Ic.Bell}     t={t} badge/>
-          <IconBtn icon={Ic.Settings} t={t}/>
+          <IconBtn icon={Ic.Bell}     t={t} badge onClick={() => nav.go('notifications')}/>
+          <IconBtn icon={Ic.Settings} t={t}       onClick={() => nav.go('settings')}/>
         </>}
       />
 
