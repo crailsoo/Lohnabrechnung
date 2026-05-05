@@ -40,13 +40,15 @@ export default function App() {
   const t = makeTheme(tw.dark, tw.accent);
   const d = densities[tw.density] || densities.regular;
 
-  const [tab, setTab]     = useState('home');
-  const [stack, setStack] = useState([]);
+  const [tab, setTab]         = useState('home');
+  const [stack, setStack]     = useState([]);
+  const [notifOpen, setNotifOpen] = useState(false);
 
   const nav = {
-    go:   (screen, params = {}) => setStack((s) => [...s, { screen, params }]),
-    back: ()                     => setStack((s) => s.slice(0, -1)),
-    tab:  (id)                   => { setStack([]); setTab(id); },
+    go:       (screen, params = {}) => setStack((s) => [...s, { screen, params }]),
+    back:     ()                     => setStack((s) => s.slice(0, -1)),
+    tab:      (id)                   => { setStack([]); setTab(id); },
+    showNotif: ()                    => setNotifOpen(true),
   };
 
   const renderTab = () => {
@@ -113,6 +115,26 @@ export default function App() {
             background: tw.dark ? '#fff' : '#000', opacity: 0.85,
             pointerEvents: 'none',
           }}/>
+
+          {/* Notification sheet overlay */}
+          {notifOpen && (
+            <div style={{ position: 'absolute', inset: 0, zIndex: 300 }}>
+              <div
+                onClick={() => setNotifOpen(false)}
+                style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)' }}
+              />
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                background: t.bg,
+                borderRadius: '20px 20px 0 0',
+                maxHeight: '78%',
+                overflowY: 'auto',
+                boxShadow: '0 -4px 24px rgba(0,0,0,0.18)',
+              }}>
+                <ScreenNotifications t={t} onClose={() => setNotifOpen(false)} sheetMode/>
+              </div>
+            </div>
+          )}
         </div>
       </PhoneFrame>
 

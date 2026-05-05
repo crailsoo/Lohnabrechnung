@@ -1,11 +1,11 @@
 import Ic from '../lib/icons.jsx';
-import { Card, Row, TopBar, IconBtn } from '../lib/ui.jsx';
+import { Card, Row } from '../lib/ui.jsx';
 
 const GROUPS = [
   {
     label: 'Heute',
     items: [
-      { id: 1, Icon: Ic.Beach,  kind: 'warn',   title: 'Urlaubsantrag: Elena Petrova', sub: '25.–29. Mai · 5 Tage · zu genehmigen', time: 'vor 1 Std', unread: true  },
+      { id: 1, Icon: Ic.Beach,  kind: 'warn',    title: 'Urlaubsantrag: Elena Petrova', sub: '25.–29. Mai · 5 Tage · zu genehmigen', time: 'vor 1 Std', unread: true  },
       { id: 2, Icon: Ic.Euro,   kind: 'accent',  title: 'Lohnlauf April fällig',        sub: 'Frist: 30.04. – bitte starten',         time: 'vor 3 Std', unread: true  },
       { id: 3, Icon: Ic.Sick,   kind: 'danger',  title: 'Krankmeldung: Aylin Renner',   sub: 'AU bis 07.05.',                         time: 'vor 5 Std', unread: false },
     ],
@@ -14,7 +14,7 @@ const GROUPS = [
     label: 'Gestern',
     items: [
       { id: 4, Icon: Ic.Doc,    kind: 'fg',      title: 'Lohnsteuer-Anmeldung März',    sub: 'Frist 10. Mai – Erinnerung',            time: '4. Mai',    unread: false },
-      { id: 5, Icon: Ic.Check,  kind: 'success',  title: 'Lohnlauf März abgeschlossen', sub: '7 Mitarbeiter · 4.213 € ausbezahlt',    time: '4. Mai',    unread: false },
+      { id: 5, Icon: Ic.Check,  kind: 'success', title: 'Lohnlauf März abgeschlossen',  sub: '7 Mitarbeiter · 4.213 € ausbezahlt',    time: '4. Mai',    unread: false },
     ],
   },
   {
@@ -26,16 +26,52 @@ const GROUPS = [
   },
 ];
 
-export default function ScreenNotifications({ t, nav }) {
+export default function ScreenNotifications({ t, nav, onClose, sheetMode }) {
+  const handleClose = onClose || (() => nav?.back());
+
   return (
-    <div style={{ paddingBottom: 20 }}>
-      <TopBar t={t} title="Benachrichtigungen"
-        leading={<IconBtn icon={Ic.ChevronL} t={t} onClick={() => nav.back()}/>}
-        trailing={<IconBtn icon={Ic.Check} t={t}/>}
-      />
+    <div style={{ paddingBottom: sheetMode ? 32 : 20 }}>
+      {sheetMode ? (
+        /* Sheet header */
+        <div style={{ padding: '12px 16px 4px' }}>
+          <div style={{
+            width: 36, height: 4, borderRadius: 999,
+            background: t.border, margin: '0 auto 14px',
+          }}/>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+            <span style={{ fontSize: 17, fontWeight: 700, color: t.fg, letterSpacing: '-0.02em' }}>
+              Benachrichtigungen
+            </span>
+            <button
+              onClick={handleClose}
+              style={{
+                width: 28, height: 28, borderRadius: 999,
+                background: t.chip, border: 0, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: t.fgMuted,
+              }}
+            >
+              <Ic.X width={14} height={14}/>
+            </button>
+          </div>
+        </div>
+      ) : (
+        /* Full-screen header */
+        <div style={{
+          padding: '10px 16px', display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between', gap: 10,
+          borderBottom: `0.5px solid ${t.border}`, background: t.bg,
+        }}>
+          <button onClick={handleClose} style={{ background: 'transparent', border: 0, padding: 0, cursor: 'pointer', color: t.fg, display: 'flex', alignItems: 'center' }}>
+            <Ic.ChevronL width={24} height={24}/>
+          </button>
+          <span style={{ fontSize: 16, fontWeight: 600, color: t.fg }}>Benachrichtigungen</span>
+          <div style={{ width: 24 }}/>
+        </div>
+      )}
 
       {GROUPS.map((g) => (
-        <div key={g.label} style={{ padding: '12px 16px 0' }}>
+        <div key={g.label} style={{ padding: '8px 16px 0' }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: t.fgFaint, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 6, paddingLeft: 2 }}>
             {g.label}
           </div>
