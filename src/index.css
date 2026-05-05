@@ -1,0 +1,20 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #14120C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* hide scrollbars inside iOS frame */
+.scr::-webkit-scrollbar { width: 0; display: none; }
+.scr { scrollbar-width: none; }
