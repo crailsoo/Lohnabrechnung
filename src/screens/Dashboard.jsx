@@ -10,15 +10,30 @@ export default function ScreenDashboard({ t, d, nav }) {
 
   return (
     <div style={{ paddingBottom: 20 }}>
-      <TopBar
-        t={t} large
-        subtitle="Dienstag · 5. Mai 2026"
-        title="Guten Morgen, Raphi"
-        trailing={<>
-          <IconBtn icon={Ic.Bell}     t={t} badge onClick={() => nav.showNotif()}/>
-          <IconBtn icon={Ic.Settings} t={t}       onClick={() => nav.go('settings')}/>
-        </>}
-      />
+      {/* TopBar inline — buttons as raw <button> to bypass any component issue */}
+      <div style={{ padding: '8px 20px 14px', background: t.bg }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginBottom: 8 }}>
+          <button
+            onClick={() => nav.showNotif()}
+            style={{ width: 36, height: 36, borderRadius: 10, background: t.accentSoft, border: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', color: t.accent }}
+          >
+            <Ic.Bell width={20} height={20}/>
+            <span style={{ position: 'absolute', top: 6, right: 6, width: 7, height: 7, borderRadius: 999, background: t.danger }}/>
+          </button>
+          <button
+            onClick={() => nav.go('settings')}
+            style={{ width: 36, height: 36, borderRadius: 10, background: t.surfaceAlt, border: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: t.fg }}
+          >
+            <Ic.Settings width={20} height={20}/>
+          </button>
+        </div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: t.fgMuted, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>
+          Dienstag · 5. Mai 2026
+        </div>
+        <h1 style={{ margin: 0, fontSize: 26, fontWeight: 700, color: t.fg, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+          Guten Morgen, Raphi
+        </h1>
+      </div>
 
       {/* Lohnlauf-Fokuskarte */}
       <div style={{ padding: '8px 16px 0' }}>
